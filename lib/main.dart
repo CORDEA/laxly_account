@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:googleapis_auth/auth_io.dart';
+import 'package:http/http.dart' as http;
 import 'package:laxly_account/authenticator.dart';
 
 void main() => runApp(new MyApp());
@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _onPressed(dynamic _) async {
-    AccessToken accessToken = await _authenticator.authenticate();
+    http.Client client = await _authenticator.authenticate();
   }
 
   @override
