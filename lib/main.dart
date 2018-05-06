@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:googleapis_auth/auth_io.dart';
+import 'package:laxly_account/authenticator.dart';
 
 void main() => runApp(new MyApp());
 
@@ -43,17 +47,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  final _authenticator = new Authenticator();
+
+  final _pressedStream = new StreamController();
+
+  _MyHomePageState() {
+    _pressedStream.stream.listen(_onPressed);
+  }
+
+  void _onPressed(dynamic _) async {
+    AccessToken accessToken = await _authenticator.authenticate();
   }
 
   @override
@@ -94,13 +100,18 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             new Text(
               '$_counter',
-              style: Theme.of(context).textTheme.display1,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .display1,
             ),
           ],
         ),
       ),
       floatingActionButton: new FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {
+          _pressedStream.add(null);
+        },
         tooltip: 'Increment',
         child: new Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
