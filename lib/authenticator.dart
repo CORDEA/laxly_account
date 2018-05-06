@@ -11,7 +11,7 @@ class Authenticator {
   final _scopes = [ScriptApi.SpreadsheetsScope];
 
   Future<http.Client> authenticate() {
-    return clientViaUserConsent(AppKey.id, _scopes, _prompt)
+    return clientViaUserConsent(AppKey.ID, _scopes, _prompt)
         .then((AuthClient client) {
       return client;
     });
