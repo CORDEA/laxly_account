@@ -1,7 +1,7 @@
-class Row {
+class SheetRow {
   final year;
   final month;
   final price;
 
-  Row(this.year, this.month, this.price);
+  SheetRow(this.year, this.month, this.price);
 }
