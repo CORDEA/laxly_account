@@ -8,13 +8,13 @@ class LaxlyTheme {
       primaryColor: PRIMARY_COLOR,
       buttonColor: PRIMARY_COLOR,
       primaryTextTheme: _textTheme,
-      primaryIconTheme: _base.iconTheme.copyWith(color: PRIMARY_TEXT_COLOR),
+      primaryIconTheme: _base.iconTheme.copyWith(color: SECONDARY_DARK_COLOR),
       accentColor: SECONDARY_COLOR,
-      textSelectionColor: PRIMARY_COLOR,
+      textSelectionColor: SECONDARY_DARK_COLOR,
       buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.normal),
       textSelectionHandleColor: PRIMARY_COLOR,
       accentTextTheme: _textTheme);
 
-  TextTheme get _textTheme => _base.textTheme
-      .apply(displayColor: PRIMARY_TEXT_COLOR, bodyColor: PRIMARY_TEXT_COLOR);
+  TextTheme get _textTheme => _base.textTheme.apply(
+      displayColor: SECONDARY_DARK_COLOR, bodyColor: SECONDARY_DARK_COLOR);
 }
