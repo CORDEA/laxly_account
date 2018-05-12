@@ -24,13 +24,15 @@ class _InputPageState extends State<InputPage> {
       appBar: AppBar(
         title: Text("Input"),
       ),
-      body: Center(
-        child: Column(
+      body: SafeArea(
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
           children: <Widget>[
+            SizedBox(height: 80.0),
             TextField(
                 controller: _priceController,
-                decoration: InputDecoration(
-                    labelText: "Price", border: OutlineInputBorder())),
+                decoration: InputDecoration(labelText: "Price")),
+            SizedBox(height: 24.0),
             RaisedButton(
               child: Text("SELECT DATE"),
               onPressed: () async {
