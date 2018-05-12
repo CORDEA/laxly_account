@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:laxly_account/app_key.dart';
+import 'package:laxly_account/input_page.dart';
 import 'package:laxly_account/row.dart';
 import 'package:laxly_account/scripts.dart';
 
@@ -15,12 +16,14 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   _MainPageState(http.Client client) {
-    _fetch(client);
+    _scripts = new Scripts(client, AppKey.SHEET_ID);
+    _fetch();
   }
 
-  void _fetch(http.Client client) async {
-    Scripts scripts = new Scripts(client, AppKey.SHEET_ID);
-    var rows = await scripts.get();
+  Scripts _scripts;
+
+  void _fetch() async {
+    var rows = await _scripts.get();
     setState(() {
       _rows.addAll(rows);
     });
@@ -31,13 +34,22 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Laxly account"),
-        ),
-        body: ListView.builder(
-            itemCount: _rows.length,
-            itemBuilder: (BuildContext context, int index) =>
-                RowItem(_rows[index])));
+      appBar: AppBar(
+        title: Text("Laxly account"),
+      ),
+      body: ListView.builder(
+          itemCount: _rows.length,
+          itemBuilder: (BuildContext context, int index) =>
+              RowItem(_rows[index])),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => new InputPage(_scripts)));
+        },
+        tooltip: "Save",
+        child: Icon(Icons.add),
+      ),
+    );
   }
 }
 
