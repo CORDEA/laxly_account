@@ -3,5 +3,5 @@ class SheetRow {
   final int month;
   final int price;
 
-  SheetRow(this.year, this.month, this.price);
+  const SheetRow(this.year, this.month, this.price);
 }
