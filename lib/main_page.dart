@@ -30,13 +30,18 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+  int _calculateTotalPrice() {
+    return _rows.map((row) => row.price).reduce((x, y) => x + y);
+  }
+
   SimpleDialog _buildDialog(BuildContext context) {
-    return SimpleDialog(
+    return new SimpleDialog(
       title: const Text("title"),
       children: <Widget>[
-        const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.0),
-            child: const Text("description"))
+        new Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.0),
+          child: new Text("¥ ${_calculateTotalPrice()}"),
+        )
       ],
     );
   }
