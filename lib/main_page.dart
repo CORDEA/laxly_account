@@ -21,6 +21,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   Scripts _scripts;
+  List<SheetRow> _rows = [];
 
   void _fetch() async {
     var rows = await _scripts.get();
@@ -29,7 +30,16 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
-  List<SheetRow> _rows = [];
+  SimpleDialog _buildDialog(BuildContext context) {
+    return SimpleDialog(
+      title: const Text("title"),
+      children: <Widget>[
+        const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.0),
+            child: const Text("description"))
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +75,12 @@ class _MainPageState extends State<MainPage> {
                     SizedBox(height: 16.0),
                     FloatingActionButton(
                       heroTag: "Second FloatingActionButton",
-                      onPressed: () {},
+                      onPressed: () async {
+                        await showDialog(
+                          context: context,
+                          builder: _buildDialog,
+                        );
+                      },
                       tooltip: "Sum",
                       child: Icon(Icons.assessment),
                     ),
