@@ -37,17 +37,44 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         title: Text("Laxly account"),
       ),
-      body: ListView.builder(
-          itemCount: _rows.length,
-          itemBuilder: (BuildContext context, int index) =>
-              RowItem(_rows[index])),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => new InputPage(_scripts)));
-        },
-        tooltip: "Save",
-        child: Icon(Icons.add),
+      body: SafeArea(
+        child: Stack(
+          children: <Widget>[
+            ListView.builder(
+              itemCount: _rows.length,
+              itemBuilder: (BuildContext context, int index) =>
+                  RowItem(_rows[index]),
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: new EdgeInsets.only(right: 16.0, bottom: 16.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    FloatingActionButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => new InputPage(_scripts)));
+                      },
+                      tooltip: "Save",
+                      child: Icon(Icons.add),
+                    ),
+                    SizedBox(height: 16.0),
+                    FloatingActionButton(
+                      heroTag: "Second FloatingActionButton",
+                      onPressed: () {},
+                      tooltip: "Sum",
+                      child: Icon(Icons.assessment),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
