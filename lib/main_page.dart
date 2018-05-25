@@ -23,6 +23,13 @@ class _MainPageState extends State<MainPage> {
   Scripts _scripts;
   List<SheetRow> _rows = [];
 
+  int get _totalPrice => _rows.map((row) => row.price).reduce((x, y) => x + y);
+
+  double get _averagePrice => _totalPrice / _rows.length;
+
+  String get _dialogDescription =>
+      "Total: ¥ $_totalPrice\nAverage: ¥ $_averagePrice";
+
   void _fetch() async {
     var rows = await _scripts.get();
     setState(() {
@@ -30,17 +37,13 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
-  int _calculateTotalPrice() {
-    return _rows.map((row) => row.price).reduce((x, y) => x + y);
-  }
-
   SimpleDialog _buildDialog(BuildContext context) {
     return new SimpleDialog(
-      title: const Text("title"),
+      title: const Text("Current state"),
       children: <Widget>[
         new Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.0),
-          child: new Text("¥ ${_calculateTotalPrice()}"),
+          child: new Text(_dialogDescription),
         )
       ],
     );
