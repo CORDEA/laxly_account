@@ -25,7 +25,7 @@ class LoginPage extends StatelessWidget {
   }
 
   void _navigateToMain(BuildContext context, http.Client client) {
-    Navigator.push(
+    Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => new MainPage(client)));
   }
 
